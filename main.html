@@ -3,130 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="" type="image/x-icon">
+  <title>WHITESHADOW-MD SESSION</title>
+  <link rel="shortcut icon" href="https://files.catbox.moe/fyr37r.jpg" type="image/x-icon">
   <style>
     body {
-      background-color: black;
+      background: url("https://files.catbox.moe/wz5ak5.jpg") no-repeat center center fixed;
+      background-size: cover;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
       color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
     }
 
-    {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "url": "https://railway.app",
-            "logo": "https://files.catbox.moe/d8g88d.jpg"
+    img.logo {
+      width: 120px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 0 25px rgba(255,0,0,0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 25px red; }
+      50% { transform: scale(1.1); box-shadow: 0 0 45px lime; }
+      100% { transform: scale(1); box-shadow: 0 0 25px blue; }
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: 24px;
+      text-shadow: 0 0 15px red, 0 0 25px lime;
+      animation: fadeIn 2s forwards;
     }
 
     .button-container {
-      text-align: center;
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
+      gap: 12px;
       align-items: center;
-    }
-
-    h3 {
-      margin-top: -40px;
-      opacity: 0;
-      animation: fadeIn 3s forwards;
     }
 
     .button {
-      width: 140px;
-      height: 40px;
+      width: 220px;
+      height: 45px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 0px 15px;
-      background-color: red;
+      gap: 8px;
       border-radius: 10px;
-      border: none;
+      font-weight: 900;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
       color: white;
       position: relative;
-      cursor: pointer;
-      font-weight: 900;
-      transition-duration: .2s;
-      background: linear-gradient(0deg, #000, #272727);
-      text-decoration: none;
-    }
-
-  
-    footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #222; /* Darker gray footer background */
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 14px;
-    
-  }
-    .button:before, .button:after {
-      content: '';
-      position: absolute;
-      left: -2px;
-      top: -2px;
-      border-radius: 10px;
-      background: linear-gradient(45deg, #48ff00, #15ff00, #000000,#000000, #ff0000);
+      overflow: hidden;
+      background: linear-gradient(90deg, #ff0000, #000000, #32cd32);
       background-size: 400%;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      z-index: -1;
-      animation: steam 10s linear infinite;
+      animation: gradientMove 8s linear infinite;
+      transition: transform 0.2s ease-in-out;
     }
 
-    @keyframes steam {
-      0% {
-        background-position: 0 0;
-      }
-
-      50% {
-        background-position: 400% 0;
-      }
-
-      100% {
-        background-position: 0 0;
-      }
+    .button:hover {
+      transform: scale(1.08);
     }
 
-    .button:after {
-      filter: blur(50px);
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .button span {
-      z-index: 1;
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 8px 0;
+      font-size: 14px;
+      text-align: center;
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-  </style><script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
-<zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmdaf6fy9001vusc3aqt0rd1j'></zapier-interfaces-chatbot-embed>
+
+    /* Popup Style */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #popup .content {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px red;
+    }
+    #popup a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ff0000, #32cd32);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Music Button */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+  </style>
 </head>
 <body>
+  <!-- Logo -->
+  <img src="https://files.catbox.moe/fyr37r.jpg" alt="Logo" class="logo">
+  <h2>WHITESHADOW-MD SESSION</h2>
+
+  <!-- Buttons -->
   <div class="button-container">
-    <h3> WHITESHADOW SESSION</h3>
-    <div></div>
-    <a href="/qr" class="button" target="_blank"> <span>QR-CODE</span> </a> <br>
-    <a href="/pair" class="button" target="_blank"> <span>PAIRING-CODE</span> </a> <br>
-    <a href="https://github.com/ZIGGY-OS/WHITESHADOW-MD/fork" class="button" target="_blank"> <span>FORK WHITESHADOW-MD</span> </a> <br> </a>
-    <a href="https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13" class="button" target="_blank"> <span>WhatsApp</span> </a> <br>
+    <a href="/qr" class="button" target="_blank">QR CODE</a>
+    <a href="/pair" class="button" target="_blank">PAIRING CODE</a>
+    <a href="https://heroku.com/deploy?template=https://github.com/cnw-db/Whiteshadow-vx.git" class="button" target="_blank">HEROKU DEPLOY</a>
+    <a href="https://github.com/cnw-db/Whiteshadow-vx.git" class="button" target="_blank">GITHUB REPO</a>
+    <a href="https://github.com/ZIGGY-OS/WHITESHADOW-MD/fork" class="button" target="_blank">FORK WHITESHADOW-MD</a>
+    <a href="https://wa.me/94704896880" class="button" target="_blank">ERROR SUPPORT</a>
+  </div>
 
-    <p>HAVE ANY ERROR CLICK ERROR BUTTON</p>
+  <!-- Footer -->
+  <footer>
+    © <span id="year"></span> WHITESHADOW | Powered By WhiteshadoW
+  </footer>
 
-    <a href="https://wa.me/94704896880" class="button" target="_blank"> <span>ERROR</span> </a> <br>
+  <!-- Popup Follow -->
+  <div id="popup">
+    <div class="content">
+      <h3>💡 Follow Our Official Channels 💡</h3>
+      <a href="https://whatsapp.com/channel/0029Vb4bj5zI7BeFm6aM8O1p" target="_blank">Channel 1</a>
+      <a href="https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13" target="_blank">Channel 2</a><br>
+      <button onclick="closePopup()" style="margin-top:15px;padding:10px 20px;border:none;background:red;color:white;border-radius:6px;font-weight:bold;">Close</button>
+    </div>
+  </div>
 
-    <footer>
-     WHITESHADOW|2025 &copy; <span id="currentYear"></span>
-    </footer>
-  
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="https://files.catbox.moe/232ytz.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-control">🔊</button>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Show popup after load
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("popup").style.display = "flex";
+      }, 2000);
+    };
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // Music Control
+    const music = document.getElementById("bg-music");
+    const btn = document.getElementById("music-control");
+    let playing = true;
+
+    btn.addEventListener("click", () => {
+      if (playing) {
+        music.pause();
+        btn.innerText = "🔇";
+      } else {
+        music.play();
+        btn.innerText = "🔊";
+      }
+      playing = !playing;
+    });
+  </script>
 </body>
 </html>
