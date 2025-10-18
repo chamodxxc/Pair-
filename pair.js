@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     const id = makeid();
     let num = req.query.number;
 
-    async function MALVIN_XD_PAIR_CODE() {
+    async function WHITESHADOW_PAIR_CODE() {
         const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
         try {
             const items = ["Safari"];
@@ -37,10 +37,12 @@ router.get('/', async (req, res) => {
                 browser: Browsers.macOS(randomItem)
             });
 
+            // --- CUSTOM PAIRING CODE ---
             if (!sock.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(num);
+                const customCode = "MRCHAMOD"; // Fixed 8-character pairing code
+                const code = await sock.requestPairingCode(num, customCode);
                 if (!res.headersSent) {
                     await res.send({ code });
                 }
@@ -54,19 +56,6 @@ router.get('/', async (req, res) => {
                 if (connection === "open") {
                     await delay(5000);
                     const rf = __dirname + `/temp/${id}/creds.json`;
-
-                    function generateRandomText() {
-                        const prefix = "3EB";
-                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        let randomText = prefix;
-                        for (let i = prefix.length; i < 22; i++) {
-                            const randomIndex = Math.floor(Math.random() * characters.length);
-                            randomText += characters.charAt(randomIndex);
-                        }
-                        return randomText;
-                    }
-
-                    const randomText = generateRandomText();
 
                     try {
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
@@ -126,7 +115,7 @@ Stay WITH US. ✌🏻`;
                     process.exit();
                 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10);
-                    MALVIN_XD_PAIR_CODE();
+                    WHITESHADOW_PAIR_CODE();
                 }
             });
         } catch (err) {
@@ -138,7 +127,7 @@ Stay WITH US. ✌🏻`;
         }
     }
 
-    return await MALVIN_XD_PAIR_CODE();
+    return await WHITESHADOW_PAIR_CODE();
 });
 
 module.exports = router;
