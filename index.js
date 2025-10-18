@@ -1,16 +1,22 @@
 const express = require('express');
-const path = require('path');
-const bodyParser = require("body-parser");
-
 const app = express();
-const PORT = process.env.PORT || 10000; // fallback for local use
-require('events').EventEmitter.defaultMaxListeners = 500;
+const bodyParser = require('body-parser');
+const path = require('path');
 
-// Load routes
+// PORT setup (Render හිතන විදිහට)
+const PORT = process.env.PORT || 8000;
+
+// Path variable
+const __path = process.cwd();
+
+// Load your routes
 const server = require('./qr');
 const code = require('./pair');
 
-// Middleware
+// Avoid memory leak warnings
+require('events').EventEmitter.defaultMaxListeners = 500;
+
+// Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -19,20 +25,26 @@ app.use('/server', server);
 app.use('/code', code);
 
 app.get('/pair', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pair.html'));
+  res.sendFile(path.join(__path, 'pair.html'));
 });
 
 app.get('/qr', (req, res) => {
-  res.sendFile(path.join(__dirname, 'qr.html'));
+  res.sendFile(path.join(__path, 'qr.html'));
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'main.html'));
+  res.sendFile(path.join(__path, 'main.html'));
 });
 
-// Start server
+// Start server (Render detect වෙන්න 0.0.0.0 bind එක)
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ WHITESHADOW-MD Server running on http://localhost:${PORT}`);
+  console.log(`
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ WHITESHADOW-MD Server Running
+🌐 URL: http://localhost:${PORT}
+⭐ Don't forget to star WHITESHADOW-MD repo!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  `);
 });
 
 module.exports = app;
