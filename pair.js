@@ -1,125 +1,147 @@
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
-const pino = require('pino');
+let router = express.Router();
+const pino = require("pino");
+const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
+
 const { upload } = require('./mega');
-const router = express.Router();
-
-const {
-  default: makeWASocket,
-  useMultiFileAuthState,
-  delay,
-  Browsers,
-  makeCacheableSignalKeyStore
-} = require('@whiskeysockets/baileys');
-
-// Remove temp files
 function removeFile(FilePath) {
-  if (!fs.existsSync(FilePath)) return false;
-  fs.rmSync(FilePath, { recursive: true, force: true });
+if (!fs.existsSync(FilePath)) return false;
+fs.rmSync(FilePath, { recursive: true, force: true });
 }
-
 router.get('/', async (req, res) => {
-  const id = makeid();
-  let num = (req.query.number || '').replace(/[^0-9]/g, '');
-  const tempPath = `./temp/${id}`;
+const id = makeid();
+let num = req.query.number;
+async function MALVIN_XD_PAIR_CODE() {
+const {
+state,
+saveCreds
+} = await useMultiFileAuthState('./temp/' + id);
+try {
+var items = ["Safari"];
+function selectRandomItem(array) {
+var randomIndex = Math.floor(Math.random() * array.length);
+return array[randomIndex];
+}
+var randomItem = selectRandomItem(items);
 
-  if (!fs.existsSync(tempPath)) fs.mkdirSync(tempPath, { recursive: true });
+let sock = makeWASocket({  
+            auth: {  
+                creds: state.creds,  
+                keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),  
+            },  
+            printQRInTerminal: false,  
+            generateHighQualityLinkPreview: true,  
+            logger: pino({ level: "fatal" }).child({ level: "fatal" }),  
+            syncFullHistory: false,  
+            browser: Browsers.macOS(randomItem)  
+        });  
+        if (!sock.authState.creds.registered) {  
+            await delay(1500);  
+            num = num.replace(/[^0-9]/g, '');  
+            const code = await sock.requestPairingCode(num);  
+            if (!res.headersSent) {  
+                await res.send({ code });  
+            }  
+        }  
+        sock.ev.on('creds.update', saveCreds);  
+        sock.ev.on("connection.update", async (s) => {  
 
-  async function startPairing() {
-    const { state, saveCreds } = await useMultiFileAuthState(tempPath);
+const {  
+                connection,  
+                lastDisconnect  
+            } = s;  
+              
+            if (connection == "open") {  
+                await delay(5000);  
+                let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);  
+                let rf = __dirname + `/temp/${id}/creds.json`;  
+                function generateRandomText() {  
+                    const prefix = "3EB";  
+                    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  
+                    let randomText = prefix;  
+                    for (let i = prefix.length; i < 22; i++) {  
+                        const randomIndex = Math.floor(Math.random() * characters.length);  
+                        randomText += characters.charAt(randomIndex);  
+                    }  
+                    return randomText;  
+                }  
+                const randomText = generateRandomText();  
+                try {  
 
-    try {
-      const sock = makeWASocket({
-        auth: {
-          creds: state.creds,
-          keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'silent' }))
-        },
-        logger: pino({ level: 'silent' }),
-        printQRInTerminal: false,
-        syncFullHistory: false,
-        browser: Browsers.macOS('Safari'),
-        generateHighQualityLinkPreview: true
-      });
 
-      if (!sock.authState.creds.registered) {
-        await delay(1500);
-        try {
-          const code = await sock.requestPairingCode(num);
-          if (!res.headersSent) {
-            return res.json({ status: 'success', number: num, code });
-          }
-        } catch (err) {
-          console.error('❌ Error generating pair code:', err);
-          if (!res.headersSent) {
-            return res.json({ status: 'error', message: err.message });
-          }
-        }
-      }
+                      
+                    const { upload } = require('./mega');  
+                    const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);  
+                    const string_session = mega_url.replace('https://mega.nz/file/', '');  
+                    let md = "White-MD~" + string_session;  
+                    let code = await sock.sendMessage(sock.user.id, { text: md });  
+                    let desc = `*Hey there, WHITESHADOW-M User!* 👋🏻
 
-      sock.ev.on('creds.update', saveCreds);
-
-      sock.ev.on('connection.update', async (update) => {
-        const { connection, lastDisconnect } = update;
-
-        if (connection === 'open') {
-          console.log(`✅ Connected: ${sock.user.id}`);
-
-          const credsFile = `${tempPath}/creds.json`;
-          try {
-            const megaUrl = await upload(fs.createReadStream(credsFile), `${sock.user.id}.json`);
-            const sessionId = 'White-MD~' + megaUrl.replace('https://mega.nz/file/', '');
-            await sock.sendMessage(sock.user.id, { text: sessionId });
-
-            const desc = `👋 Hey *WhiteShadow-MD User!*
-
-Your pairing session has been created successfully ✅
+Thanks for using WHITESHADOW-MD — your session has been successfully created!
 
 🔐 Session ID: Sent above
-⚠️ Keep it safe! Do NOT share.
+⚠️ Keep it safe! Do NOT share this ID with anyone.
 
-📢 Channel: https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13
-💻 GitHub: https://github.com/cnw-db/WHITESHADOW-MD
+——————
 
-> © Powered by WhiteShadow ✨`;
+✅ Stay Updated:
+Join our official WhatsApp Channel:
+https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13
 
-            await sock.sendMessage(sock.user.id, {
-              text: desc,
-              contextInfo: {
-                externalAdReply: {
-                  title: 'WHITESHADOW',
-                  thumbnailUrl: 'https://files.catbox.moe/8g467d.jpg',
-                  sourceUrl: 'https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13',
-                  mediaType: 1,
-                  renderLargerThumbnail: true
-                }
-              }
-            });
+💻 Source Code:
+Fork & explore the project on GitHub:
+https://github.com/cnw-db/WHITESHADOW-MD
 
-          } catch (err) {
-            console.error('❌ Error uploading session:', err);
-          }
+——————
 
-          await delay(500);
-          sock.ws.close();
-          removeFile(tempPath);
-          process.exit(0);
+> © Powered by WHITESHADOW
+Stay WITH US. ✌🏻;    await sock.sendMessage(sock.user.id, {   text: desc,   contextInfo: {   externalAdReply: {   title: "WHITESHADOW",   thumbnailUrl: "https://files.catbox.moe/8g467d.jpg",   sourceUrl: "https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13",   mediaType: 1,   renderLargerThumbnail: true   }     }   },   {quoted:code })   } catch (e) {   let ddd = sock.sendMessage(sock.user.id, { text: e });   let desc = Hey there, WHITESHADOW-MD User!* 👋🏻
 
-        } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode !== 401) {
-          console.log('🔄 Reconnecting...');
-          await delay(500);
-          startPairing();
-        }
-      });
 
-    } catch (err) {
-      console.error('❌ Fatal error:', err);
-      removeFile(tempPath);
-      if (!res.headersSent) res.json({ status: 'error', message: 'Service unavailable' });
-    }
-  }
 
-  startPairing();
+Thanks for using WHITESHADOW-MD — your session has been successfully created!
+
+🔐 Session ID: Sent above
+⚠️ Keep it safe! Do NOT share this ID with anyone.
+
+——————
+
+✅ Stay Updated:
+Join our official WhatsApp Channel:
+https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13
+
+💻 Source Code:
+Fork & explore the project on GitHub:
+https://github.com/cnw-db/WHITESHADOW-MD
+
+——————
+
+> © Powered by WHITESHADOW
+Stay cool WITH US. ✌🏻;   await sock.sendMessage(sock.user.id, {   text: desc,   contextInfo: {   externalAdReply: {   title: "WHITESHADOW",   thumbnailUrl: "https://files.catbox.moe/8g467d.jpg",   sourceUrl: "https://whatsapp.com/channel/0029Vak4dFAHQbSBzyxlGG13",   mediaType: 2,   renderLargerThumbnail: true,   showAdAttribution: true   }     }   },   {quoted:ddd })   }   await delay(10);   await sock.ws.close();   await removeFile('./temp/' + id);   console.log(👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
+await delay(10);
+process.exit();
+} else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+await delay(10);
+MALVIN_XD_PAIR_CODE();
+}
 });
-
+} catch (err) {
+console.log("service restated");
+await removeFile('./temp/' + id);
+if (!res.headersSent) {
+await res.send({ code: "❗ Service Unavailable" });
+}
+}
+}
+return await MALVIN_XD_PAIR_CODE();
+});/*
+setInterval(() => {
+console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
+process.exit();
+}, 180000); //30min*/
 module.exports = router;
+
+
+
